@@ -3766,6 +3766,235 @@ class Hs extends Ii {
             }
         })
     }
+
+    async show({element: {id: t=null}={}}={}) {
+        this.id = null;
+        this.element.classList.add(this.classes.animating);
+        await this.onRandomize();
+        
+        this.timelineIn = D.timeline({
+            onComplete: e=>{
+                this.element.classList.remove(this.classes.animating)
+            }
+        });
+        
+        this.timelineIn.set(this.element, {
+            autoAlpha: 1
+        });
+        
+        this.timelineIn.fromTo(this.elements.link, {
+            autoAlpha: 0
+        }, {
+            autoAlpha: 1,
+            duration: 1,
+            ease: Nt
+        }, 0);
+        
+        this.elements.links.forEach((e,i)=>{
+            if (e.id === t) {
+                const n = this.elements.media.getBoundingClientRect();
+                this.timelineIn.from(e, {
+                    borderRadius: 0,
+                    clearProps: "height, width",
+                    duration: 1,
+                    ease: Nt,
+                    height: "100vh",
+                    pointerEvents: "none",
+                    width: "100vw",
+                    x: -n.x - e.offsetLeft,
+                    y: -n.y - e.offsetTop,
+                    onComplete: r=>{
+                        D.set(e, {
+                            clearProps: "all"
+                        })
+                    }
+                }, 0)
+            } else {
+                this.timelineIn.fromTo(e, {
+                    scale: 0,
+                    transition: "none"
+                }, {
+                    delay: D.utils.random(0, .4, !0),
+                    duration: .6,
+                    ease: Nt,
+                    scale: 1,
+                    onComplete: n=>{
+                        D.set(e, {
+                            clearProps: "all"
+                        })
+                    }
+                }, 0)
+            }
+        });
+        
+        return super.show(this.timelineIn)
+    }
+
+    async hide(t) {
+        if (this.rotation) {
+            this.rotation.kill();
+            this.rotation = null;
+        }
+        
+        await new Promise(i=>{
+            window.requestAnimationFrame(n=>{
+                i()
+            })
+        });
+        
+        if (t.selector === ".about") {
+            await this.onRandomize(0);
+            await new Promise(i=>{
+                D.delayedCall(.6, i)
+            });
+        }
+        
+        this.timelineOut = D.timeline();
+        
+        this.timelineOut.to(this.elements.link, {
+            autoAlpha: 0,
+            duration: 1,
+            ease: Nt
+        });
+        
+        this.elements.links.forEach((i,n)=>{
+            if (i.id === this.id) {
+                const r = this.elements.media.getBoundingClientRect();
+                const {firstElementChild: s} = i;
+                
+                this.timelineOut.to(i, {
+                    borderRadius: 0,
+                    duration: 1,
+                    ease: Nt,
+                    height: "100vh",
+                    transition: "none",
+                    width: "100vw",
+                    x: -r.x - i.offsetLeft,
+                    y: -r.y - i.offsetTop
+                }, 0);
+                
+                this.timelineOut.set(s, {
+                    autoAlpha: 1,
+                    transition: "none"
+                }, 0);
+                
+                this.timelineOut.to(s, {
+                    autoAlpha: 1,
+                    duration: 1,
+                    ease: Nt,
+                    height: window.innerHeight * .9,
+                    marginLeft: 0,
+                    marginTop: 0,
+                    x: window.innerWidth <= Me ? "2rem" : "10rem",
+                    y: window.innerHeight * .05
+                }, 0)
+            } else {
+                this.timelineOut.to(i, {
+                    delay: D.utils.random(0, .4, !0),
+                    duration: .6,
+                    ease: Nt,
+                    transition: "none",
+                    scale: 0
+                }, 0)
+            }
+        });
+        
+        this.timelineOut.call(i=>{
+            this.id = null
+        });
+        
+        return super.hide(this.timelineOut)
+    }
+
+    // FIXED: This method now properly triggers navigation
+    onOpen(event) {
+        // Get the link that was clicked
+        const target = event.currentTarget;
+        
+        // Store the ID for the hide animation
+        this.id = target.id;
+        
+        // Get the href
+        const href = target.getAttribute('href');
+        
+        // Prevent default browser navigation
+        event.preventDefault();
+        
+        // Use the app's navigation system
+        if (href && window.App) {
+            window.App.onLinkClick({ 
+                href: href, 
+                pushState: true 
+            });
+        }
+    }
+
+    onRandomize(t=D.utils.random(0, 5, 1)) {
+        if (this.rotation) {
+            this.rotation.kill();
+            this.rotation = null;
+        }
+        
+        this.rotation = D.delayedCall(2, e=>{
+            this.onRandomize()
+        });
+        
+        this.element.classList.remove(`home--${this.index}`);
+        this.index = t;
+        
+        return new Promise(e=>{
+            this.element.classList.add(`home--${this.index}`);
+            window.requestAnimationFrame(i=>{
+                e()
+            })
+        })
+    }
+
+    onMouseEnter() {
+        if (this.rotation) {
+            this.rotation.kill();
+            this.rotation = null;
+        }
+    }
+
+    onMouseLeave() {
+        if (this.rotation) {
+            this.rotation.kill();
+            this.rotation = null;
+        }
+        
+        this.rotation = D.delayedCall(2, t=>{
+            this.onRandomize()
+        })
+    }
+
+    // FIXED: Event listeners now properly set up click handling
+    addEventListeners() {
+        super.addEventListeners();
+        
+        this.elements.media.addEventListener("mouseenter", this.onMouseEnter);
+        this.elements.media.addEventListener("mouseleave", this.onMouseLeave);
+        
+        // Add click listener to each link
+        this.elements.links.forEach(link => {
+            link.addEventListener("click", this.onOpen);
+        });
+    }
+
+    // FIXED: Properly clean up event listeners
+    removeEventListeners() {
+        super.removeEventListeners();
+        
+        this.elements.media.removeEventListener("mouseenter", this.onMouseEnter);
+        this.elements.media.removeEventListener("mouseleave", this.onMouseLeave);
+        
+        // Remove click listeners
+        this.elements.links.forEach(link => {
+            link.removeEventListener("click", this.onOpen);
+        });
+    }
+}
+
     async show({element: {id: t=null}={}}={}) {
         return this.id = null,
         this.element.classList.add(this.classes.animating),
