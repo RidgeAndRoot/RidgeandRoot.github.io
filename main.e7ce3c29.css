@@ -1269,7 +1269,7 @@ body.loaded {
     overflow: visible
 }
 
-#mta .project__sections__media__gallery {
+#Lamps .project__sections__media__gallery {
     height: auto;
     position: static;
     width: auto
@@ -1288,7 +1288,7 @@ body.loaded {
         width: 100%
     }
 
-    #mta .project__sections__media__gallery--1 {
+    #Lamps .project__sections__media__gallery--1 {
         width: 100%
     }
 }
@@ -1302,12 +1302,12 @@ body.loaded {
     width: 100%
 }
 
-#mta .project__sections__media__item {
+#Lamps .project__sections__media__item {
     height: auto;
     width: auto
 }
 
-#wwc .project__sections__section:nth-child(2) .project__sections__media__gallery--1 .project__sections__media__item {
+#PreviousWorks .project__sections__section:nth-child(2) .project__sections__media__gallery--1 .project__sections__media__item {
     margin: auto;
     width: 70.9rem
 }
@@ -1322,7 +1322,7 @@ body.loaded {
     width: 37.5rem
 }
 
-#gainbridge .project__sections__media__gallery--3 .project__sections__media__item,#clover .project__sections__media__gallery--3 .project__sections__media__item {
+#Products .project__sections__media__gallery--3 .project__sections__media__item,#Construction .project__sections__media__gallery--3 .project__sections__media__item {
     width: 45.7rem
 }
 
@@ -1337,7 +1337,7 @@ body.loaded {
         width: 100%
     }
 
-    #wwc .project__sections__section:nth-child(2) .project__sections__media__gallery--1 .project__sections__media__item {
+    #Comingsoon .project__sections__section:nth-child(2) .project__sections__media__gallery--1 .project__sections__media__item {
         height: auto;
         width: 100%
     }
@@ -1347,7 +1347,7 @@ body.loaded {
         width: calc(50% - 1.1rem)
     }
 
-    .project__sections__media__gallery--3 .project__sections__media__item,#gainbridge .project__sections__media__gallery--3 .project__sections__media__item,#clover .project__sections__media__gallery--3 .project__sections__media__item {
+    .project__sections__media__gallery--3 .project__sections__media__item,#Products .project__sections__media__gallery--3 .project__sections__media__item,#Construction .project__sections__media__gallery--3 .project__sections__media__item {
         height: auto;
         width: calc(33.33% - 2.2rem)
     }
@@ -1367,7 +1367,7 @@ body.loaded {
     height: auto
 }
 
-#mta .project__sections__media__item__image {
+#Lamps .project__sections__media__item__image {
     height: 100rem;
     position: static;
     width: auto
@@ -1378,7 +1378,7 @@ body.loaded {
         position:static
     }
 
-    #mta .project__sections__media__item__image {
+    #Lamps .project__sections__media__item__image {
         height: auto;
         width: 100%
     }
@@ -1389,7 +1389,7 @@ body.loaded {
     object-position: top center
 }
 
-#mta .project__sections__media__item__video {
+#Lamps .project__sections__media__item__video {
     height: 100rem;
     position: static;
     width: auto
@@ -1400,7 +1400,7 @@ body.loaded {
         position:static
     }
 
-    #mta .project__sections__media__item__video {
+    #Lamps .project__sections__media__item__video {
         height: auto;
         width: 100%
     }
