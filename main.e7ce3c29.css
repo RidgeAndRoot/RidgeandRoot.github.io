@@ -358,6 +358,7 @@ body.loaded {
 }
 
 .home {
+    position: Relative;
     z-index: 2
 }
 
@@ -385,7 +386,7 @@ body.loaded {
 
 .home__media__element {
     overflow: hidden;
-    position: absolute
+    position: relative;
 }
 
 .home:not(.home--animating) .home__media__element {
@@ -919,7 +920,7 @@ body.loaded {
     z-index: 1
 }
 
-.project#Lamps,.project#PreviousWorks,.project#Products,.project#Comingsoon,.project#Comingsoon,.project#Construction,.project#Inquires {
+.project#Lamps,.project#PreviousWorks,.project#Products,.project#Comingsoon,.project#Comingsoon2,.project#Construction,.project#Inquires {
     color: #ffffff
 }
 
